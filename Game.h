@@ -8,12 +8,30 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 class Game {
+
+public:
+  enum PlayerDirection {
+    Up,
+    Down,
+    Left,
+    Right
+  };
+
+  enum BackgroundType {
+    walkable,
+    enterable,
+    cuttable,
+    readable,
+    swimable,
+    downjumpable,
+    rightjumpable,
+    leftjumpable,
+    forbidden
+  };
+
 public:
   Game(void);
-
   void run(void);
-
-  enum PlayerDirection { Up, Down, Left, Right };
 
 private:
   void processEvents(void);
