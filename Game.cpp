@@ -13,7 +13,8 @@ Game::Game(void) :
   m_isMovingDown(false),
   m_isMovingLeft(false),
   m_isMovingRight(false),
-  m_isLeftLeg(true) {
+  m_isLeftLeg(true),
+  m_mapping("../Pokemon/resources/maps/NewBarkTown.txt", 10, 4, 18, 24) {
 
   if (!m_playerTexture.loadFromFile("../Pokemon/resources/characters/red.png"))
     std::cerr << "Error: cannot load player." << std::endl;
@@ -71,6 +72,8 @@ void Game::run(void) {
           }
         }
         m_isLeftLeg = !m_isLeftLeg;
+        if (canWalk())
+          updateMapping();
       } else {
         update();
         render();
@@ -112,7 +115,8 @@ void Game::update(void) {
   if (m_isMovingRight)
     mouvement.x -= playerSpeed;
 
-  m_background.move(mouvement);
+  if (canWalk())
+    m_background.move(mouvement);
 }
 
 void Game::render(void) {
@@ -156,14 +160,14 @@ void Game::changeDirection(void) {
   }
 }
 
-void Game::walk(bool leftLeg) {
+void Game::walk(bool p_leftLeg) {
   if (m_isMovingDown) {
-    if (leftLeg)
+    if (p_leftLeg)
       m_player.setTextureRect(sf::IntRect(5*16, 0, 16, 16));
     else
       m_player.setTextureRect(sf::IntRect(6*16, 0, 16, 16));
   } else if (m_isMovingUp) {
-    if (leftLeg)
+    if (p_leftLeg)
       m_player.setTextureRect(sf::IntRect(8*16, 0, 16, 16));
     else
       m_player.setTextureRect(sf::IntRect(9*16, 0, 16, 16));
@@ -172,4 +176,29 @@ void Game::walk(bool leftLeg) {
   } else if (m_isMovingRight) {
     m_player.setTextureRect(sf::IntRect(1*16, 0, 16, 16));
   }
+}
+
+bool Game::canWalk(void) const {
+  Mapping::BackgroundType bt = Mapping::BackgroundType::none;
+  if (m_isMovingDown)
+    bt = m_mapping.getBackgroundTypeDown();
+  else if (m_isMovingUp)
+    bt = m_mapping.getBackgroundTypeUp();
+  else if (m_isMovingLeft)
+    bt = m_mapping.getBackgroundTypeLeft();
+  else if (m_isMovingRight)
+    bt = m_mapping.getBackgroundTypeRight();
+
+  return bt == Mapping::BackgroundType::walkable;
+}
+
+void Game::updateMapping() {
+  if (m_isMovingDown)
+    m_mapping.goToDown();
+  else if (m_isMovingUp)
+    m_mapping.goToUp();
+  else if (m_isMovingLeft)
+    m_mapping.goToLeft();
+  else if (m_isMovingRight)
+    m_mapping.goToRight();
 }

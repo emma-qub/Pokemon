@@ -3,13 +3,15 @@ SOURCES += \
     Game.cpp \
     ResourceHolder.inl \
     Entity.cpp \
-    Player.cpp
+    Player.cpp \
+    Mapping.cxx
 
 HEADERS += \
     Game.h \
     ResourceHolder.hpp \
     Entity.h \
-    Player.h
+    Player.h \
+    Mapping.hxx
 
 LIBS += \
   -lsfml-system \

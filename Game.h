@@ -7,6 +7,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "Mapping.hxx"
+
 class Game {
 
 public:
@@ -15,18 +17,6 @@ public:
     Down,
     Left,
     Right
-  };
-
-  enum BackgroundType {
-    walkable,
-    enterable,
-    cuttable,
-    readable,
-    swimable,
-    downjumpable,
-    rightjumpable,
-    leftjumpable,
-    forbidden
   };
 
 public:
@@ -42,7 +32,9 @@ private:
   bool hasToChangeDirection(void) const;
   void changeDirection(void);
 
-  void walk(bool leftLeg = true);
+  void walk(bool p_leftLeg = true);
+  bool canWalk(void) const;
+  void updateMapping();
 
 private:
   sf::RenderWindow m_window;
@@ -61,6 +53,8 @@ private:
   bool m_isMovingRight;
 
   bool m_isLeftLeg;
+
+  Mapping m_mapping;
 };
 
 #endif // GAME_H
