@@ -56,16 +56,16 @@ void Game::run(void) {
           m_isMovingLeft = false;
           m_isMovingRight = false;
         } else {
-          for (int k = 0; k < 12; ++k) {
+          for (int k = 0; k < 6; ++k) {
             update();
             render();
           }
-          for(int k = 0; k < 10; ++k) {
+          for(int k = 0; k < 5; ++k) {
             walk(m_isLeftLeg);
             update();
             render();
           }
-          for (int k = 0; k < 2; ++k) {
+          for (int k = 0; k < 1; ++k) {
             changeDirection();
             update();
             render();
@@ -104,7 +104,7 @@ void Game::processEvents(void) {
 void Game::update(void) {
   sf::Vector2f mouvement(0.f, 0.f);
 
-  float playerSpeed = 2.f;
+  float playerSpeed = 4.f;
 
   if (m_isMovingUp)
     mouvement.y += playerSpeed;
