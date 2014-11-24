@@ -14,7 +14,7 @@ Game::Game(void) :
   m_isMovingLeft(false),
   m_isMovingRight(false),
   m_isLeftLeg(true),
-  m_mapping("../Pokemon/resources/maps/NewBarkTown.txt", 10, 4, 18, 24) {
+  m_mapping("../Pokemon/resources/maps/PalletTown.txt", 10, 4, 18, 20) {
 
   if (!m_playerTexture.loadFromFile("../Pokemon/resources/characters/red.png"))
     std::cerr << "Error: cannot load player." << std::endl;
@@ -23,7 +23,7 @@ Game::Game(void) :
   m_player.setTextureRect(sf::IntRect(4*16, 0, 16, 16));
   m_player.setScale(3.f, 3.f);
 
-  if (!m_backgroundTexture.loadFromFile("../Pokemon/resources/maps/NewBarkTown.png"))
+  if (!m_backgroundTexture.loadFromFile("../Pokemon/resources/maps/PalletTown.png"))
     std::cerr << "Error: cannot load player." << std::endl;
   m_background.setTexture(m_backgroundTexture);
   m_background.setPosition(-9*32.f, 0.f);
@@ -189,7 +189,9 @@ bool Game::canWalk(void) const {
   else if (m_isMovingRight)
     bt = m_mapping.getBackgroundTypeRight();
 
-  return bt == Mapping::BackgroundType::walkable;
+  return bt == Mapping::BackgroundType::walkable
+      || bt == Mapping::BackgroundType::enterable
+      || bt == Mapping::BackgroundType::catchable;
 }
 
 void Game::updateMapping() {

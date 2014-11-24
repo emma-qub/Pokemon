@@ -16,8 +16,13 @@ public:
     downjumpable = 5,
     rightjumpable = 6,
     leftjumpable = 7,
-    forbidden = 8,
-    none = 9
+    upEnterable = 8,
+    downEnterable = 9,
+    rightEnterable = 10,
+    leftEnterable = 11,
+    catchable = 12,
+    forbidden = 13,
+    none = 14
   };
 
 public:
