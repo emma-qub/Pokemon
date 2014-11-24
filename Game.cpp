@@ -108,11 +108,11 @@ void Game::update(void) {
 
   if (m_isMovingUp)
     mouvement.y += playerSpeed;
-  if (m_isMovingDown)
+  else if (m_isMovingDown)
     mouvement.y -= playerSpeed;
-  if (m_isMovingLeft)
+  else if (m_isMovingLeft)
     mouvement.x += playerSpeed;
-  if (m_isMovingRight)
+  else if (m_isMovingRight)
     mouvement.x -= playerSpeed;
 
   if (canWalk())
